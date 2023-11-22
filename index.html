@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Tracker</title>
+</head>
+
+<body>
+
+    <div id="tracker-container" style="display: none;">
+        <h1>Visitor Tracker</h1>
+
+        <p>Total Visitors: <span id="visitor-count">0</span></p>
+
+    </div>
+    <div>
+        <button onclick="resetTracker()">Reset Tracker</button>
+        <div id="login-container">
+            <label for="username">Username:</label>
+            <input type="text" id="username">
+            <label for="password">Password:</label>
+            <input type="password" id="password">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+        let visitorCount = 0;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Basic authentication check (Replace this with a more secure method in a real application)
+            if (username === 'admin' && password === 'password') {
+                isLoggedIn = true;
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('tracker-container').style.display = 'block';
+                updateVisitorCount();
+            } else {
+                alert('Invalid login credentials. Please try again.');
+            }
+        }
+
+        function updateVisitorCount() {
+            if (isLoggedIn) {
+                visitorCount++;
+                document.getElementById('visitor-count').innerText = visitorCount;
+            } else {
+                alert('You must log in first.');
+            }
+        }
+
+        function resetTracker() {
+            if (isLoggedIn) {
+                visitorCount = 0;
+                document.getElementById('visitor-count').innerText = visitorCount;
+                alert('Visitor tracker has been reset.');
+            } else {
+                alert('You must log in first.');
+            }
+        }
+    </script>
+</body>
+
+</html>

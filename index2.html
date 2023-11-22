@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visitor Tracker</title>
+</head>
+<body>
+
+  <div id="tracker-container">
+    <h1>Visitor Tracker</h1>
+    <p>Total Visitors: <span id="visitor-count">0</span></p>
+    <button onclick="resetTracker()">Reset Tracker</button>
+  </div>
+
+  <script>
+    let isLoggedIn = false;
+
+    // Function to update the visitor count
+    function updateVisitorCount() {
+      if (isLoggedIn) {
+        let visitorCount = localStorage.getItem('visitorCount') || 0;
+        visitorCount = parseInt(visitorCount, 10) + 1;
+
+        localStorage.setItem('visitorCount', visitorCount);
+
+        document.getElementById('visitor-count').innerText = visitorCount;
+      }
+    }
+
+    // Function to increment the visitor count on page load
+    window.onload = function () {
+      updateVisitorCount();
+    };
+
+    function resetTracker() {
+      const resetConfirm = confirm('Are you sure you want to reset the tracker? This action is irreversible.');
+      if (resetConfirm) {
+        // Prompt for username and password
+        const username = prompt('Enter your username:');
+        const password = prompt('Enter your password:');
+
+        // Basic authentication check (Replace this with a more secure method in a real application)
+        if (username === 'admin' && password === 'password') {
+          isLoggedIn = true;
+          localStorage.removeItem('visitorCount');
+          updateVisitorCount();
+          alert('Visitor tracker has been reset.');
+        } else {
+          alert('Invalid login credentials. Unable to reset.');
+        }
+      }
+    }
+  </script>
+</body>
+</html>
